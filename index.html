@@ -85,13 +85,23 @@
             }
         }
 
-        @keyframes typing {
-            from {
-                width: 0;
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
             }
+            50% {
+                transform: scale(1.05);
+            }
+        }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
             to {
-                width: 100%;
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -353,6 +363,95 @@
             margin: 40px 0;
             color: #c4617a;
             font-style: italic;
+        }
+
+        /* GALLERY STYLES */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+            padding: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            background: linear-gradient(135deg, #fff 0%, #fce7f3 100%);
+            border-radius: 25px;
+            overflow: hidden;
+            border: 5px solid #2d6a85;
+            box-shadow: 0 10px 0 #2d6a85;
+            transition: all 0.3s;
+            cursor: pointer;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) rotate(-2deg);
+            box-shadow: 0 18px 0 #2d6a85, 0 0 40px rgba(248, 165, 194, 0.5);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(45, 106, 133, 0.95), transparent);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            color: #ffc9dd;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #f8a5c2 0%, #ffb8d1 100%);
+            color: #2d6a85;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 3px solid #ffd6e6;
+            transition: all 0.2s;
+            box-shadow: 0 4px 0 #c4617a;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #c4617a;
+        }
+
+        .download-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 0 #c4617a;
+        }
+
+        .download-btn i {
+            margin-right: 5px;
         }
 
         /* BLOB TRANSLATOR */
@@ -802,6 +901,15 @@
                 font-size: 1rem;
                 padding: 20px 30px;
             }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .gallery-image {
+                height: 200px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -846,12 +954,12 @@
                 font-size: 2rem;
             }
 
-            nav {
-                padding: 15px 20px;
-            }
-
             .section {
                 padding: 60px 15px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -903,17 +1011,106 @@
         </p>
     </section>
 
-    <section id="translator" class="section section-bg">
+    <section id="gallery" class="section section-bg">
+        <h2 class="section-title">BLOB GALLERY</h2>
+        <p class="blob-divider">~ download your favorite blobs ~</p>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="/assets/image-1.jpg" alt="Blob Image 1" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">BLOB #1</div>
+                    <a href="/assets/image-1.jpg" download="blob-1.jpg" class="download-btn">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/image-2.jpg" alt="Blob Image 2" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">BLOB #2</div>
+                    <a href="/assets/image-2.jpg" download="blob-2.jpg" class="download-btn">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/image-3.jpg" alt="Blob Image 3" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">BLOB #3</div>
+                    <a href="/assets/image-3.jpg" download="blob-3.jpg" class="download-btn">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/image-4.jpg" alt="Blob Image 4" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">BLOB #4</div>
+                    <a href="/assets/image-4.jpg" download="blob-4.jpg" class="download-btn">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/image-5.jpg" alt="Blob Image 5" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">BLOB #5</div>
+                    <a href="/assets/image-5.jpg" download="blob-5.jpg" class="download-btn">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/image-6.jpg" alt="Blob Image 6" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">BLOB #6</div>
+                    <a href="/assets/image-6.jpg" download="blob-6.jpg" class="download-btn">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/image-7.jpg" alt="Blob Image 7" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">BLOB #7</div>
+                    <a href="/assets/image-7.jpg" download="blob-7.jpg" class="download-btn">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </a>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="/assets/image-8.jpg" alt="Blob Image 8" class="gallery-image">
+                <div class="gallery-overlay">
+                    <div class="gallery-title">BLOB #8</div>
+                    <a href="/assets/image-8.jpg" download="blob-8.jpg" class="download-btn">
+                        <i class="fas fa-download"></i> DOWNLOAD
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <p class="blob-divider" style="margin-top: 50px;">~ blob blob bloooob! ~</p>
+    </section>
+
+    <section id="translator" class="section section-alt">
         <h2 class="section-title">BLOB TRANSLATOR</h2>
         <p class="blob-divider">~ translate your words to blob language ~</p>
 
         <div class="translator-box">
             <div class="translator-title">
-                <i class="fas fa-fish"></i> BLOB CIPHER TRANSLATOR <i class="fas fa-fish"></i>
+                <i class="fas fa-fish"></i> BLOB TRANSLATOR <i class="fas fa-fish"></i>
             </div>
             <p style="text-align: center; margin-bottom: 25px; color: #c4617a; font-weight: 600; font-style: italic;">
-                Universal cipher - works for everyone! No database needed! 🔐<br>
-                <span style="font-size: 0.9rem;">Natural blob words - looks like real blob speech!</span>
+                Speak the language of the deep! Transform English into Blob Language! 🐟<br>
+                <span style="font-size: 0.9rem;">Every letter becomes a unique blob word!</span>
             </p>
 
             <!-- Quick Translate Buttons -->
@@ -951,30 +1148,30 @@
                 </div>
                 <div class="translator-input-box">
                     <label class="translator-label">
-                        <i class="fas fa-fish"></i> Blob Cipher
+                        <i class="fas fa-fish"></i> Blob Language
                     </label>
                     <textarea id="blobOutput" class="translator-textarea"
-                        placeholder="Blob cipher appears here..."></textarea>
+                        placeholder="Blob language appears here..."></textarea>
                     <button onclick="copyToClipboard('blobOutput')"
                         style="margin-top: 10px; padding: 10px 20px; background: #f8a5c2; border: 3px solid #2d6a85; border-radius: 15px; color: #2d6a85; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif;">
                         <i class="fas fa-copy"></i> COPY
                     </button>
                 </div>
                 <button class="translate-btn" onclick="translateToBlob()">
-                    <i class="fas fa-lock"></i> ENCODE TO BLOB
+                    <i class="fas fa-arrow-right"></i> TRANSLATE TO BLOB
                 </button>
                 <button class="translate-btn" onclick="translateToEnglish()"
                     style="background: linear-gradient(135deg, #d4a5b8 0%, #e3b8c9 100%); box-shadow: 0 6px 0 #8b5a6f;">
-                    <i class="fas fa-unlock"></i> DECODE TO ENGLISH
+                    <i class="fas fa-arrow-left"></i> TRANSLATE TO ENGLISH
                 </button>
             </div>
 
-            <!-- Cipher Key Reference -->
+            <!-- Blob Dictionary -->
             <div
                 style="margin-top: 40px; padding: 30px; background: rgba(248, 165, 194, 0.1); border-radius: 20px; border: 3px solid #f8a5c2;">
                 <h4
                     style="text-align: center; font-family: 'Bangers', cursive; font-size: 1.8rem; color: #2d6a85; margin-bottom: 20px;">
-                    <i class="fas fa-key"></i> CIPHER KEY
+                    <i class="fas fa-book"></i> BLOB DICTIONARY
                 </h4>
                 <div
                     style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; font-family: 'Courier New', monospace; font-size: 0.9rem; text-align: center;">
@@ -1006,9 +1203,8 @@
                     <div><strong>z</strong>=blobz</div>
                 </div>
                 <p style="text-align: center; margin-top: 20px; font-style: italic; color: #c4617a; font-weight: 700;">
-                    Natural Blob Language! 🐟<br>
-                    <span style="font-size: 0.9rem;">Words look like real blob speech - varying lengths (3-7
-                        chars)</span>
+                    Learn the language of the blobfish! 🐟<br>
+                    <span style="font-size: 0.9rem;">Each letter has its own special blob word</span>
                 </p>
             </div>
         </div>
@@ -1016,7 +1212,7 @@
         <p class="blob-divider" style="margin-top: 50px;">~ bloooob blob blob blob ~</p>
     </section>
 
-    <section id="about" class="section section-alt">
+    <section id="about" class="section section-bg">
         <h2 class="section-title">ABOUT BLOBFISH</h2>
         <p class="blob-divider">~ blobbb bloooob blob blob ~</p>
         <div class="features">
@@ -1073,12 +1269,11 @@
                 <h4>TAX</h4>
                 <p>0%</p>
             </div>
-            
         </div>
         <p class="blob-divider" style="margin-top: 60px;">blob blob bloooob... blobbb!</p>
     </section>
 
-    <section id="buy" class="section section-bg">
+    <section id="buy" class="section section-alt">
         <h2 class="section-title">BUY ON PUMP.FUN</h2>
         <p class="blob-divider">blobbb bloooooob blob!</p>
 
@@ -1131,7 +1326,7 @@
         <p class="blob-divider" style="margin-top: 40px;">blob blob bloooooob blob blob!</p>
     </section>
 
-    <section id="socials" class="section section-alt">
+    <section id="socials" class="section section-bg">
         <h2 class="section-title">JOIN THE COMMUNITY</h2>
         <p style="text-align: center; font-size: 1.8rem; margin-bottom: 20px; font-weight: 700; color: #334155;">blob
             blob blob together <i class="fas fa-fish" style="color: #f8a5c2;"></i></p>
@@ -1170,9 +1365,6 @@
         });
 
         // NATURAL BLOB CIPHER
-        // Words translate to natural-looking "blob" patterns with varying lengths (3-7 letters)
-        // Using only b, l, o to create authentic blob words
-        // IMPORTANT: Each letter must have a UNIQUE pattern!
         const letterToBlobMap = {
             'a': 'blob',
             'b': 'blooob',
@@ -1220,7 +1412,7 @@
             '9': 'blob9'
         };
 
-        // Create reverse mapping automatically
+        // Create reverse mapping
         const blobToLetterMap = {};
         for (let [letter, blob] of Object.entries(letterToBlobMap)) {
             blobToLetterMap[blob] = letter;
@@ -1236,7 +1428,6 @@
                 return;
             }
 
-            // Split into words first
             const words = input.split(' ');
             let encodedWords = [];
 
@@ -1247,10 +1438,8 @@
                     if (letterToBlobMap[char]) {
                         encodedWord.push(letterToBlobMap[char]);
                     } else if (!'!?.,\'-"'.includes(char)) {
-                        // Keep unknown characters as-is
                         encodedWord.push(char);
                     } else {
-                        // Attach punctuation to last blob word
                         if (encodedWord.length > 0) {
                             encodedWord[encodedWord.length - 1] += char;
                         } else {
@@ -1262,7 +1451,7 @@
                 encodedWords.push(encodedWord.join(' '));
             }
 
-            output.value = encodedWords.join('  '); // Double space between words
+            output.value = encodedWords.join('  ');
         }
 
         // Blob to English Decoder
@@ -1271,16 +1460,14 @@
             const output = document.getElementById('humanInput');
 
             if (!input.trim()) {
-                output.value = "Please enter blob cipher to decode!";
+                output.value = "Please enter blob language to translate!";
                 return;
             }
 
-            // Split by double spaces or newlines (for word separators)
             const words = input.split(/\s\s+|\n/);
             let result = [];
 
             for (let word of words) {
-                // Split each word by single space to get blob patterns
                 const blobPatterns = word.split(/\s/);
                 let decodedWord = '';
 
@@ -1290,7 +1477,6 @@
                     if (blobToLetterMap[pattern]) {
                         decodedWord += blobToLetterMap[pattern];
                     } else {
-                        // Check if it has punctuation attached
                         let found = false;
                         for (let [blobPattern, letter] of Object.entries(blobToLetterMap)) {
                             if (pattern.startsWith(blobPattern) && blobPattern.length > 2) {
@@ -1312,22 +1498,18 @@
             output.value = result.join(' ');
         }
 
-        // Quick translate function - detects if text is blob or English
+        // Quick translate function
         function quickTranslate(text) {
-            // Check if text contains only blob-like patterns (blob, blo, oob, etc.)
             const isBlobText = /^[blo\s!?.,'"]+$/i.test(text);
 
             if (isBlobText) {
-                // It's blob text - decode it to English
                 document.getElementById('blobOutput').value = text;
                 translateToEnglish();
             } else {
-                // It's English - encode it to blob
                 document.getElementById('humanInput').value = text;
                 translateToBlob();
             }
 
-            // Scroll to translator section smoothly
             setTimeout(() => {
                 const translator = document.getElementById('translator');
                 if (translator) {
@@ -1337,20 +1519,16 @@
         }
 
         function quickTranslateReverse(text) {
-            // Check if text contains only blob-like patterns
             const isBlobText = /^[blo\s!?.,'"]+$/i.test(text);
 
             if (isBlobText) {
-                // It's blob text - but encode it anyway (treat as English)
                 document.getElementById('humanInput').value = text;
                 translateToBlob();
             } else {
-                // It's English - but decode it anyway (treat as blob)
                 document.getElementById('blobOutput').value = text;
                 translateToEnglish();
             }
 
-            // Scroll to translator section smoothly
             setTimeout(() => {
                 const translator = document.getElementById('translator');
                 if (translator) {
@@ -1358,16 +1536,16 @@
                 }
             }, 100);
         }
+
         // Copy to clipboard function
         function copyToClipboard(elementId) {
             const element = document.getElementById(elementId);
             element.select();
-            element.setSelectionRange(0, 99999); // For mobile
+            element.setSelectionRange(0, 99999);
 
             try {
                 document.execCommand('copy');
 
-                // Show feedback
                 const originalPlaceholder = element.placeholder;
                 element.placeholder = '✓ Copied to clipboard!';
                 setTimeout(() => {
