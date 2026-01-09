@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$BLOB - The Blobfish Token</title>
+    <link rel="icon" type="image/png" href="/assets/blob.png">
+    <link rel="shortcut icon" type="image/png" href="/assets/blob.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @keyframes gentleFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(-2deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(2deg);
+            }
+        }
+
+        @keyframes bubbleFloat {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 8px 0 #c4617a, 0 0 20px rgba(248, 165, 194, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 8px 0 #c4617a, 0 0 40px rgba(248, 165, 194, 0.6);
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(180deg, #2d6a85 0%, #3a7a98 100%);
+            color: #1e293b;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bubble {
+            position: fixed;
+            bottom: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(252, 231, 243, 0.2);
+            border-radius: 50%;
+            animation: bubbleFloat 15s infinite;
+            pointer-events: none;
+            border: 2px solid rgba(252, 231, 243, 0.3);
+        }
+
+        .bubble:nth-child(1) {
+            left: 10%;
+            animation-duration: 12s;
+            animation-delay: 0s;
+        }
+
+        .bubble:nth-child(2) {
+            left: 20%;
+            animation-duration: 18s;
+            animation-delay: 2s;
+            width: 60px;
+            height: 60px;
+        }
+
+        .bubble:nth-child(3) {
+            left: 35%;
+            animation-duration: 14s;
+            animation-delay: 4s;
+            width: 30px;
+            height: 30px;
+        }
+
+        .bubble:nth-child(4) {
+            left: 50%;
+            animation-duration: 16s;
+            animation-delay: 1s;
+            width: 50px;
+            height: 50px;
+        }
+
+        .bubble:nth-child(5) {
+            left: 65%;
+            animation-duration: 20s;
+            animation-delay: 3s;
+            width: 45px;
+            height: 45px;
+        }
+
+        .bubble:nth-child(6) {
+            left: 80%;
+            animation-duration: 13s;
+            animation-delay: 5s;
+            width: 35px;
+            height: 35px;
+        }
+
+        .bubble:nth-child(7) {
+            left: 90%;
+            animation-duration: 17s;
+            animation-delay: 6s;
+            width: 55px;
+            height: 55px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px 100px;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(252, 231, 243, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(248, 165, 194, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, #2d6a85 0%, #3a7a98 50%, #478aaa 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🐟';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.03;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 Q300,10 600,60 T1200,60 L1200,120 L0,120 Z" fill="%23fce7f3"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-image {
+            width: 500px;
+            max-width: 85%;
+            margin-bottom: 40px;
+            animation: gentleFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+            transition: transform 0.3s;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 8rem;
+            margin-bottom: 20px;
+            font-family: 'Bangers', cursive;
+            color: #ffc9dd;
+            text-shadow: 6px 6px 0 #2d6a85, 0 0 30px rgba(255, 201, 221, 0.5);
+            letter-spacing: 3px;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .tagline {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 30px 0 20px;
+            color: #ffd6e6;
+            text-shadow: 3px 3px 0 #2d6a85;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .blob-subtitle {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 20px 0;
+            color: #e6b3cc;
+            font-style: italic;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 22px 65px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            font-family: 'Bangers', cursive;
+            background: linear-gradient(135deg, #f8a5c2 0%, #ffb8d1 100%);
+            color: #2d6a85;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 8px 0 #c4617a;
+            margin: 10px;
+            transition: all 0.2s;
+            letter-spacing: 1px;
+            border: 4px solid #ffd6e6;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 11px 0 #c4617a;
+            animation: glow 1.5s infinite;
+        }
+
+        .cta-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 6px 0 #c4617a;
+        }
+
+        .cta-button.secondary {
+            background: linear-gradient(135deg, #d4a5b8 0%, #e3b8c9 100%);
+            box-shadow: 0 8px 0 #8b5a6f;
+        }
+
+        .section {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-bg {
+            background:
+                url('data:image/svg+xml,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="30" r="2" fill="%23f8a5c2" opacity="0.1"/></svg>'),
+                #fce7f3;
+        }
+
+        .section-alt {
+            background:
+                linear-gradient(45deg, transparent 45%, rgba(248, 165, 194, 0.1) 50%, transparent 55%),
+                linear-gradient(180deg, #f5d4e4 0%, #e6bdce 100%);
+            background-size: 40px 40px, 100% 100%;
+        }
+
+        .section-sand {
+            background:
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                linear-gradient(180deg, #e6c9a8 0%, #d4b39a 100%);
+            background-size: 80px 80px, 100% 100%;
+        }
+
+        .section-title {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 70px;
+            font-family: 'Bangers', cursive;
+            color: #2d6a85;
+            text-shadow: 5px 5px 0 #ffc9dd;
+            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '~';
+            position: absolute;
+            left: -40px;
+            color: #f8a5c2;
+        }
+
+        .section-title::before {
+            content: '~';
+            position: absolute;
+            right: -40px;
+            color: #f8a5c2;
+        }
+
+        .blob-divider {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 40px 0;
+            color: #c4617a;
+            font-style: italic;
+        }
+
+        /* BLOB TRANSLATOR */
+        .translator-box {
+            background: #fff;
+            padding: 50px;
+            border-radius: 30px;
+            border: 5px solid #2d6a85;
+            box-shadow: 0 10px 0 #2d6a85, 0 0 40px rgba(248, 165, 194, 0.3);
+            margin: 60px auto;
+            max-width: 900px;
+        }
+
+        .translator-title {
+            font-size: 3rem;
+            font-family: 'Bangers', cursive;
+            color: #2d6a85;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .translator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .translator-input-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .translator-label {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2d6a85;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .translator-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 20px;
+            border: 4px solid #2d6a85;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-family: 'Poppins', sans-serif;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+
+        .translator-textarea:focus {
+            outline: none;
+            border-color: #f8a5c2;
+            box-shadow: 0 0 20px rgba(248, 165, 194, 0.3);
+        }
+
+        .translate-btn {
+            padding: 18px 50px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: 'Bangers', cursive;
+            background: linear-gradient(135deg, #f8a5c2 0%, #ffb8d1 100%);
+            color: #2d6a85;
+            border: 4px solid #ffd6e6;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 0 #c4617a;
+        }
+
+        .translate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 #c4617a;
+        }
+
+        .translate-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 4px 0 #c4617a;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 50px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #fff 0%, #fce7f3 100%);
+            padding: 50px 35px;
+            border-radius: 30px;
+            text-align: center;
+            transition: all 0.4s;
+            box-shadow: 0 10px 0 #2d6a85;
+            border: 5px solid #2d6a85;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(248, 165, 194, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-12px) rotate(-2deg);
+            box-shadow: 0 18px 0 #2d6a85, 0 0 40px rgba(248, 165, 194, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 4.5rem;
+            margin-bottom: 25px;
+            color: #f8a5c2;
+            filter: drop-shadow(0 4px 6px rgba(196, 97, 122, 0.3));
+        }
+
+        .feature-card h3 {
+            font-size: 2.3rem;
+            margin-bottom: 25px;
+            font-family: 'Bangers', cursive;
+            color: #2d6a85;
+            letter-spacing: 1px;
+        }
+
+        .feature-card p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .feature-blob {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #c4617a;
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        .token-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 70px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #fff 0%, #fce7f3 100%);
+            padding: 45px 30px;
+            border-radius: 25px;
+            border: 5px solid #2d6a85;
+            box-shadow: 0 10px 0 #2d6a85;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .stat-card::after {
+            content: '🐟';
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.05;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 16px 0 #2d6a85;
+        }
+
+        .stat-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #f8a5c2;
+        }
+
+        .stat-card h4 {
+            font-size: 1.5rem;
+            font-family: 'Bangers', cursive;
+            color: #2d6a85;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .stat-card p {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #334155;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contract-address {
+            background: linear-gradient(135deg, #fff 0%, #fce7f3 100%);
+            padding: 30px 45px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 40px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            word-break: break-all;
+            max-width: 90%;
+            color: #2d6a85;
+            border: 5px solid #2d6a85;
+            box-shadow: 0 8px 0 #2d6a85;
+            transition: all 0.3s;
+        }
+
+        .contract-address:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 11px 0 #2d6a85;
+        }
+
+        .steps-container {
+            max-width: 950px;
+            margin: 50px auto;
+            background: linear-gradient(135deg, #fff 0%, #fce7f3 100%);
+            padding: 50px 45px;
+            border-radius: 30px;
+            border: 5px solid #2d6a85;
+            box-shadow: 0 10px 0 #2d6a85;
+            text-align: center;
+        }
+
+        .step {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: #334155;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 20px;
+            padding: 25px;
+            background: rgba(248, 165, 194, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .step:hover {
+            transform: translateX(10px);
+            background: rgba(248, 165, 194, 0.2);
+        }
+
+        .step i {
+            color: #f8a5c2;
+            font-size: 2rem;
+            margin-top: 3px;
+            min-width: 35px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #fff 0%, #fce7f3 100%);
+            border-radius: 50px;
+            text-decoration: none;
+            color: #2d6a85;
+            font-weight: 700;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            border: 5px solid #2d6a85;
+            box-shadow: 0 6px 0 #2d6a85;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 11px 0 #2d6a85;
+        }
+
+        .social-link i {
+            font-size: 1.6rem;
+            color: #f8a5c2;
+        }
+
+        .quick-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #f8a5c2, #ffcce0);
+            border: 3px solid #2d6a85;
+            border-radius: 20px;
+            color: #2d6a85;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 0 #c4617a;
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #c4617a;
+            background: linear-gradient(135deg, #ffb8d1, #ffd6e6);
+        }
+
+        .quick-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 0 #c4617a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 70px 20px;
+            background: linear-gradient(180deg, #2d6a85 0%, #1e5a7a 100%);
+            color: #ffc9dd;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,60 Q300,100 600,60 T1200,60 L1200,0 L0,0 Z" fill="%23e6c9a8"/></svg>');
+            background-size: cover;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 4.5rem;
+            }
+
+            .tagline {
+                font-size: 2rem;
+            }
+
+            .blob-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .hero-image {
+                width: 320px;
+            }
+
+            .section-title {
+                font-size: 3.5rem;
+            }
+
+            .section-title::after,
+            .section-title::before {
+                display: none;
+            }
+
+            .translator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .translate-btn {
+                grid-column: span 1;
+                font-size: 1.3rem;
+                padding: 16px 40px;
+            }
+
+            .translator-box {
+                padding: 30px 20px;
+            }
+
+            .translator-title {
+                font-size: 2rem;
+            }
+
+            .cta-button {
+                padding: 18px 40px;
+                font-size: 1.3rem;
+            }
+
+            .feature-card {
+                padding: 35px 25px;
+            }
+
+            .feature-icon {
+                font-size: 3.5rem;
+            }
+
+            .token-stats {
+                gap: 30px;
+            }
+
+            .stat-card {
+                padding: 35px 20px;
+            }
+
+            .steps-container {
+                padding: 35px 25px;
+            }
+
+            .step {
+                font-size: 1.1rem;
+                padding: 20px;
+            }
+
+            .step i {
+                font-size: 1.5rem;
+            }
+
+            .social-links {
+                gap: 15px;
+            }
+
+            .social-link {
+                padding: 15px 35px;
+                font-size: 1.1rem;
+            }
+
+            .quick-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+
+            .blob-divider {
+                font-size: 1.5rem;
+            }
+
+            .contract-address {
+                font-size: 1rem;
+                padding: 20px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .tagline {
+                font-size: 1.6rem;
+            }
+
+            .blob-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-image {
+                width: 260px;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .translator-title {
+                font-size: 1.6rem;
+            }
+
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+
+            .feature-card h3 {
+                font-size: 1.8rem;
+            }
+
+            .feature-card p {
+                font-size: 1rem;
+            }
+
+            .stat-card p {
+                font-size: 2rem;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            .section {
+                padding: 60px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <section class="hero">
+        <img src="/assets/blob.png" alt="Blobfish" class="hero-image"
+            onerror="this.src='/mnt/user-data/uploads/1767923770255_image.png'">
+        <h1>$BLOB</h1>
+        <p class="tagline"
+            onclick="quickTranslateReverse('boo bllob lob bol blo blobs blot  blolb bol blobs blobl'); window.location.hash='translator';"
+            style="cursor: pointer; transition: all 0.3s;"
+            onmouseover="this.style.transform='scale(1.05)'; this.style.color='#ffb8d1';"
+            onmouseout="this.style.transform='scale(1)'; this.style.color='#ffd6e6';"
+            title="🔓 Click to decode this blob text!">
+            boo bllob lob bol blo blobs blot blolb bol blobs blobl
+        </p>
+        <p class="blob-subtitle"
+            onclick="quickTranslateReverse('blooob boo lob lob bol blobs blobl ?'); window.location.hash='translator';"
+            style="cursor: pointer; transition: all 0.3s;"
+            onmouseover="this.style.transform='scale(1.05)'; this.style.color='#f8a5c2';"
+            onmouseout="this.style.transform='scale(1)'; this.style.color='#e6b3cc';"
+            title="🔓 Click to decode this blob text!">
+            blooob boo lob lob bol blobs blobl ?
+        </p>
+        <div>
+            <a href="#buy" class="cta-button"><i class="fas fa-fire"></i> BUY ON PUMP.FUN</a>
+            <a href="#translator" class="cta-button secondary"><i class="fas fa-language"></i> TRANSLATOR</a>
+        </div>
+        <p class="blob-subtitle"
+            onclick="quickTranslateReverse('lob blo blot blobs  bllob oob'); window.location.hash='translator';"
+            style="margin-top: 30px; cursor: pointer; transition: all 0.3s;"
+            onmouseover="this.style.transform='scale(1.05)'; this.style.color='#f8a5c2';"
+            onmouseout="this.style.transform='scale(1)'; this.style.color='#e6b3cc';"
+            title="🔓 Click to decode this blob text!">
+            lob blo blot blobs  bllob oob
+        </p>
+        <p style="margin-top: 20px; font-size: 0.9rem; color: #e6b3cc; font-style: italic;">
+            💡 Tip: Click any blob text to decode it!
+        </p>
+    </section>
+
+    <section id="translator" class="section section-bg">
+        <h2 class="section-title">BLOB TRANSLATOR</h2>
+        <p class="blob-divider">~ translate your words to blob language ~</p>
+
+        <div class="translator-box">
+            <div class="translator-title">
+                <i class="fas fa-fish"></i> BLOB CIPHER TRANSLATOR <i class="fas fa-fish"></i>
+            </div>
+            <p style="text-align: center; margin-bottom: 25px; color: #c4617a; font-weight: 600; font-style: italic;">
+                Universal cipher - works for everyone! No database needed! 🔐<br>
+                <span style="font-size: 0.9rem;">Natural blob words - looks like real blob speech!</span>
+            </p>
+
+            <!-- Quick Translate Buttons -->
+            <div
+                style="margin-bottom: 30px; padding: 25px; background: rgba(255, 255, 255, 0.5); border-radius: 20px; border: 3px dashed #f8a5c2;">
+                <h4
+                    style="text-align: center; font-family: 'Bangers', cursive; font-size: 1.5rem; color: #2d6a85; margin-bottom: 15px;">
+                    <i class="fas fa-bolt"></i> QUICK TRANSLATE
+                </h4>
+                <p style="text-align: center; margin-bottom: 15px; font-size: 0.9rem; color: #334155;">Click to
+                    instantly translate popular phrases:</p>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                    <button onclick="quickTranslate('blob blob blob blob')" class="quick-btn">blob blob blob
+                        blob</button>
+                    <button onclick="quickTranslate('buy blob now')" class="quick-btn">buy blob now</button>
+                    <button onclick="quickTranslate('to the moon')" class="quick-btn">to the moon</button>
+                    <button onclick="quickTranslate('pump fun')" class="quick-btn">pump fun</button>
+                    <button onclick="quickTranslate('blobfish army')" class="quick-btn">blobfish army</button>
+                    <button onclick="quickTranslate('lets go')" class="quick-btn">lets go</button>
+                    <button onclick="quickTranslate('hodl strong')" class="quick-btn">hodl strong</button>
+                </div>
+            </div>
+
+            <div class="translator-grid">
+                <div class="translator-input-box">
+                    <label class="translator-label">
+                        <i class="fas fa-keyboard"></i> English
+                    </label>
+                    <textarea id="humanInput" class="translator-textarea"
+                        placeholder="Type your English message here..."></textarea>
+                    <button onclick="copyToClipboard('humanInput')"
+                        style="margin-top: 10px; padding: 10px 20px; background: #f8a5c2; border: 3px solid #2d6a85; border-radius: 15px; color: #2d6a85; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif;">
+                        <i class="fas fa-copy"></i> COPY
+                    </button>
+                </div>
+                <div class="translator-input-box">
+                    <label class="translator-label">
+                        <i class="fas fa-fish"></i> Blob Cipher
+                    </label>
+                    <textarea id="blobOutput" class="translator-textarea"
+                        placeholder="Blob cipher appears here..."></textarea>
+                    <button onclick="copyToClipboard('blobOutput')"
+                        style="margin-top: 10px; padding: 10px 20px; background: #f8a5c2; border: 3px solid #2d6a85; border-radius: 15px; color: #2d6a85; font-weight: 700; cursor: pointer; font-family: 'Poppins', sans-serif;">
+                        <i class="fas fa-copy"></i> COPY
+                    </button>
+                </div>
+                <button class="translate-btn" onclick="translateToBlob()">
+                    <i class="fas fa-lock"></i> ENCODE TO BLOB
+                </button>
+                <button class="translate-btn" onclick="translateToEnglish()"
+                    style="background: linear-gradient(135deg, #d4a5b8 0%, #e3b8c9 100%); box-shadow: 0 6px 0 #8b5a6f;">
+                    <i class="fas fa-unlock"></i> DECODE TO ENGLISH
+                </button>
+            </div>
+
+            <!-- Cipher Key Reference -->
+            <div
+                style="margin-top: 40px; padding: 30px; background: rgba(248, 165, 194, 0.1); border-radius: 20px; border: 3px solid #f8a5c2;">
+                <h4
+                    style="text-align: center; font-family: 'Bangers', cursive; font-size: 1.8rem; color: #2d6a85; margin-bottom: 20px;">
+                    <i class="fas fa-key"></i> CIPHER KEY
+                </h4>
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; font-family: 'Courier New', monospace; font-size: 0.9rem; text-align: center;">
+                    <div><strong>a</strong>=blob</div>
+                    <div><strong>b</strong>=blooob</div>
+                    <div><strong>c</strong>=bolb</div>
+                    <div><strong>d</strong>=bloob</div>
+                    <div><strong>e</strong>=blo</div>
+                    <div><strong>f</strong>=blolb</div>
+                    <div><strong>g</strong>=bllob</div>
+                    <div><strong>h</strong>=blobl</div>
+                    <div><strong>i</strong>=bol</div>
+                    <div><strong>j</strong>=bloblo</div>
+                    <div><strong>k</strong>=bloobl</div>
+                    <div><strong>l</strong>=lob</div>
+                    <div><strong>m</strong>=blom</div>
+                    <div><strong>n</strong>=blon</div>
+                    <div><strong>o</strong>=oob</div>
+                    <div><strong>p</strong>=boob</div>
+                    <div><strong>q</strong>=blooool</div>
+                    <div><strong>r</strong>=bolor</div>
+                    <div><strong>s</strong>=blobs</div>
+                    <div><strong>t</strong>=blot</div>
+                    <div><strong>u</strong>=boo</div>
+                    <div><strong>v</strong>=bloov</div>
+                    <div><strong>w</strong>=blolob</div>
+                    <div><strong>x</strong>=blobx</div>
+                    <div><strong>y</strong>=bloby</div>
+                    <div><strong>z</strong>=blobz</div>
+                </div>
+                <p style="text-align: center; margin-top: 20px; font-style: italic; color: #c4617a; font-weight: 700;">
+                    Natural Blob Language! 🐟<br>
+                    <span style="font-size: 0.9rem;">Words look like real blob speech - varying lengths (3-7
+                        chars)</span>
+                </p>
+            </div>
+        </div>
+
+        <p class="blob-divider" style="margin-top: 50px;">~ bloooob blob blob blob ~</p>
+    </section>
+
+    <section id="about" class="section section-alt">
+        <h2 class="section-title">ABOUT BLOBFISH</h2>
+        <p class="blob-divider">~ blobbb bloooob blob blob ~</p>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-fish"></i>
+                </div>
+                <h3>THE SADDEST COIN</h3>
+                <p>Blob blob blob.. blooob blob bloooooob blob!!!</p>
+                <p class="feature-blob">bloooob blob... blob?</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3>PUMP.FUN LAUNCH</h3>
+                <p>Blooob blob blob... blob blob bloooob! Blob blob blob Solana blob blob.</p>
+                <p class="feature-blob">blob blob bloooooob!</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>COMMUNITY DRIVEN</h3>
+                <p>Blob blob blob blob! Bloooob blob blob blob blob blob blob blob.</p>
+                <p class="feature-blob">blobbb... bloooob blob</p>
+            </div>
+        </div>
+        <p class="blob-divider" style="margin-top: 60px;">~ blob blob bloooooob blob blob ~</p>
+    </section>
+
+    <section id="tokenomics" class="section section-sand">
+        <h2 class="section-title">TOKENOMICS</h2>
+        <p class="blob-divider">bloooooob blob blob blob?</p>
+        <div class="token-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h4>TOTAL SUPPLY</h4>
+                <p>1B</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h4>LIQUIDITY</h4>
+                <p>LOCKED</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <h4>TAX</h4>
+                <p>0%</p>
+            </div>
+            
+        </div>
+        <p class="blob-divider" style="margin-top: 60px;">blob blob bloooob... blobbb!</p>
+    </section>
+
+    <section id="buy" class="section section-bg">
+        <h2 class="section-title">BUY ON PUMP.FUN</h2>
+        <p class="blob-divider">blobbb bloooooob blob!</p>
+
+        <div style="text-align: center; margin: 60px auto;">
+            <h3
+                style="font-size: 2.8rem; font-family: 'Bangers', cursive; color: #2d6a85; text-shadow: 3px 3px 0 #ffc9dd; margin-bottom: 30px; letter-spacing: 2px; text-align: center;">
+                <i class="fas fa-rocket"></i> CONTRACT ADDRESS
+            </h3>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="contract-address"
+                    style="font-size: 2.5rem; padding: 40px 50px; background: linear-gradient(135deg, #f8a5c2, #ffd6e6);">
+                    CA SOON 🚀
+                </div>
+            </div>
+            <p style="margin-top: 25px; font-size: 1.3rem; color: #c4617a; font-weight: 700; font-style: italic;">
+                Launch on Pump.fun coming soon! Stay tuned! 🐟
+            </p>
+        </div>
+
+        <div class="steps-container">
+            <h3
+                style="font-family: 'Bangers', cursive; font-size: 2.8rem; color: #2d6a85; margin-bottom: 35px; text-align: center;">
+                HOW TO BUY</h3>
+            <div class="step">
+                <i class="fas fa-wallet"></i>
+                <div><strong>Get a Wallet</strong> - Download Phantom or Solflare wallet for Solana. Bloooob blob blob!
+                </div>
+            </div>
+            <div class="step">
+                <i class="fas fa-money-bill-wave"></i>
+                <div><strong>Buy SOL</strong> - Purchase SOL from an exchange. Blob blob bloooob blob.</div>
+            </div>
+            <div class="step">
+                <i class="fas fa-fire"></i>
+                <div><strong>Go to Pump.fun</strong> - Visit pump.fun and paste the $BLOB contract address. Blobbb blob!
+                </div>
+            </div>
+            <div class="step">
+                <i class="fas fa-hand-holding-heart"></i>
+                <div><strong>Buy & HODL</strong> - Swap your SOL for $BLOB and join the blob family! Bloooooob!</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; text-align: center;">
+            <a href="https://pump.fun" target="_blank" class="cta-button"
+                style="font-size: 2.2rem; padding: 28px 80px;">
+                <i class="fas fa-fire"></i> VISIT PUMP.FUN
+            </a>
+        </div>
+        <p class="blob-divider" style="margin-top: 40px;">blob blob bloooooob blob blob!</p>
+    </section>
+
+    <section id="socials" class="section section-alt">
+        <h2 class="section-title">JOIN THE COMMUNITY</h2>
+        <p style="text-align: center; font-size: 1.8rem; margin-bottom: 20px; font-weight: 700; color: #334155;">blob
+            blob blob together <i class="fas fa-fish" style="color: #f8a5c2;"></i></p>
+        <p class="blob-divider">bloooooob blob blob? blob blob!</p>
+        <div class="social-links">
+            <a href="#" class="social-link" target="_blank">
+                <i class="fab fa-twitter"></i> TWITTER
+            </a>
+            <a href="#" class="social-link" target="_blank">
+                <i class="fas fa-chart-line"></i> DEXSCREENER
+            </a>
+        </div>
+        <p class="blob-divider" style="margin-top: 50px;">blobbb bloooob blob blob blob!</p>
+    </section>
+
+    <footer>
+        <p
+            style="font-size: 3rem; font-family: 'Bangers', cursive; letter-spacing: 2px; margin-bottom: 25px; margin-top: 50px;">
+            BLOB BLOB BLOOOOOOB BLOB</p>
+        <p style="font-style: italic; margin: 20px 0; font-size: 1.3rem;">bloooob blob blob... blobbb blob bloooob</p>
+        <p>$BLOB is a meme coin with no intrinsic value or expectation of financial return.</p>
+        <p>For entertainment purposes only. Always DYOR.</p>
+        <p style="margin-top: 30px; opacity: 0.8;">© 2026 Blobfish Token. blob blob bloooob.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // NATURAL BLOB CIPHER
+        // Words translate to natural-looking "blob" patterns with varying lengths (3-7 letters)
+        // Using only b, l, o to create authentic blob words
+        // IMPORTANT: Each letter must have a UNIQUE pattern!
+        const letterToBlobMap = {
+            'a': 'blob',
+            'b': 'blooob',
+            'c': 'bolb',
+            'd': 'bloob',
+            'e': 'blo',
+            'f': 'blolb',
+            'g': 'bllob',
+            'h': 'blobl',
+            'i': 'bol',
+            'j': 'bloblo',
+            'k': 'bloobl',
+            'l': 'lob',
+            'm': 'blom',
+            'n': 'blon',
+            'o': 'oob',
+            'p': 'boob',
+            'q': 'blooool',
+            'r': 'bolor',
+            's': 'blobs',
+            't': 'blot',
+            'u': 'boo',
+            'v': 'bloov',
+            'w': 'blolob',
+            'x': 'blobx',
+            'y': 'bloby',
+            'z': 'blobz',
+            ' ': ' ',
+            '!': '!',
+            '?': '?',
+            '.': '.',
+            ',': ',',
+            "'": "'",
+            '"': '"',
+            '-': '-',
+            '0': 'blob0',
+            '1': 'blob1',
+            '2': 'blob2',
+            '3': 'blob3',
+            '4': 'blob4',
+            '5': 'blob5',
+            '6': 'blob6',
+            '7': 'blob7',
+            '8': 'blob8',
+            '9': 'blob9'
+        };
+
+        // Create reverse mapping automatically
+        const blobToLetterMap = {};
+        for (let [letter, blob] of Object.entries(letterToBlobMap)) {
+            blobToLetterMap[blob] = letter;
+        }
+
+        // English to Blob Encoder
+        function translateToBlob() {
+            const input = document.getElementById('humanInput').value.toLowerCase();
+            const output = document.getElementById('blobOutput');
+
+            if (!input.trim()) {
+                output.value = "Blop? Blob blob blob!";
+                return;
+            }
+
+            // Split into words first
+            const words = input.split(' ');
+            let encodedWords = [];
+
+            for (let word of words) {
+                let encodedWord = [];
+
+                for (let char of word) {
+                    if (letterToBlobMap[char]) {
+                        encodedWord.push(letterToBlobMap[char]);
+                    } else if (!'!?.,\'-"'.includes(char)) {
+                        // Keep unknown characters as-is
+                        encodedWord.push(char);
+                    } else {
+                        // Attach punctuation to last blob word
+                        if (encodedWord.length > 0) {
+                            encodedWord[encodedWord.length - 1] += char;
+                        } else {
+                            encodedWord.push(char);
+                        }
+                    }
+                }
+
+                encodedWords.push(encodedWord.join(' '));
+            }
+
+            output.value = encodedWords.join('  '); // Double space between words
+        }
+
+        // Blob to English Decoder
+        function translateToEnglish() {
+            const input = document.getElementById('blobOutput').value.toLowerCase().trim();
+            const output = document.getElementById('humanInput');
+
+            if (!input.trim()) {
+                output.value = "Please enter blob cipher to decode!";
+                return;
+            }
+
+            // Split by double spaces or newlines (for word separators)
+            const words = input.split(/\s\s+|\n/);
+            let result = [];
+
+            for (let word of words) {
+                // Split each word by single space to get blob patterns
+                const blobPatterns = word.split(/\s/);
+                let decodedWord = '';
+
+                for (let pattern of blobPatterns) {
+                    if (!pattern) continue;
+
+                    if (blobToLetterMap[pattern]) {
+                        decodedWord += blobToLetterMap[pattern];
+                    } else {
+                        // Check if it has punctuation attached
+                        let found = false;
+                        for (let [blobPattern, letter] of Object.entries(blobToLetterMap)) {
+                            if (pattern.startsWith(blobPattern) && blobPattern.length > 2) {
+                                decodedWord += letter;
+                                decodedWord += pattern.substring(blobPattern.length);
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            decodedWord += pattern;
+                        }
+                    }
+                }
+
+                result.push(decodedWord);
+            }
+
+            output.value = result.join(' ');
+        }
+
+        // Quick translate function - detects if text is blob or English
+        function quickTranslate(text) {
+            // Check if text contains only blob-like patterns (blob, blo, oob, etc.)
+            const isBlobText = /^[blo\s!?.,'"]+$/i.test(text);
+
+            if (isBlobText) {
+                // It's blob text - decode it to English
+                document.getElementById('blobOutput').value = text;
+                translateToEnglish();
+            } else {
+                // It's English - encode it to blob
+                document.getElementById('humanInput').value = text;
+                translateToBlob();
+            }
+
+            // Scroll to translator section smoothly
+            setTimeout(() => {
+                const translator = document.getElementById('translator');
+                if (translator) {
+                    translator.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        }
+
+        function quickTranslateReverse(text) {
+            // Check if text contains only blob-like patterns
+            const isBlobText = /^[blo\s!?.,'"]+$/i.test(text);
+
+            if (isBlobText) {
+                // It's blob text - but encode it anyway (treat as English)
+                document.getElementById('humanInput').value = text;
+                translateToBlob();
+            } else {
+                // It's English - but decode it anyway (treat as blob)
+                document.getElementById('blobOutput').value = text;
+                translateToEnglish();
+            }
+
+            // Scroll to translator section smoothly
+            setTimeout(() => {
+                const translator = document.getElementById('translator');
+                if (translator) {
+                    translator.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        }
+        // Copy to clipboard function
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            element.select();
+            element.setSelectionRange(0, 99999); // For mobile
+
+            try {
+                document.execCommand('copy');
+
+                // Show feedback
+                const originalPlaceholder = element.placeholder;
+                element.placeholder = '✓ Copied to clipboard!';
+                setTimeout(() => {
+                    element.placeholder = originalPlaceholder;
+                }, 2000);
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+        }
+
+        // Allow Enter key to translate
+        document.getElementById('humanInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                translateToBlob();
+            }
+        });
+
+        document.getElementById('blobOutput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                translateToEnglish();
+            }
+        });
+
+        // Auto-decode when blob text is pasted
+        document.getElementById('blobOutput').addEventListener('paste', function () {
+            setTimeout(() => {
+                translateToEnglish();
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
