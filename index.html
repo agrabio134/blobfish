@@ -252,6 +252,72 @@
             font-style: italic;
         }
 
+        /* Comic Speech Bubble */
+        .blob-bubble {
+            position: relative;
+            display: inline-block;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 20px;
+            border: 4px solid #2d6a85;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #2d6a85;
+            box-shadow: 0 4px 0 #2d6a85, 0 0 20px rgba(248, 165, 194, 0.4);
+            margin-top: 10px;
+            animation: pulse 2s ease-in-out infinite;
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .blob-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid #2d6a85;
+        }
+
+        .blob-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -11px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 12px solid #fff;
+        }
+
+        .blob-bubble i {
+            color: #f8a5c2;
+            margin-right: 5px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bubbleBounce {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-5px) scale(1.02);
+            }
+        }
+
+        .blob-bubble:hover {
+            animation: bubbleBounce 0.5s ease-in-out;
+            background: linear-gradient(135deg, #fff 0%, #fce7f3 100%);
+            box-shadow: 0 6px 0 #2d6a85, 0 0 30px rgba(248, 165, 194, 0.6);
+        }
+
         .cta-button {
             display: inline-block;
             padding: 22px 65px;
@@ -818,6 +884,26 @@
                 width: 320px;
             }
 
+            .blob-bubble {
+                font-size: 0.75rem;
+                padding: 10px 16px;
+                border: 3px solid #2d6a85;
+            }
+
+            .blob-bubble::before {
+                bottom: -12px;
+                border-left: 12px solid transparent;
+                border-right: 12px solid transparent;
+                border-top: 12px solid #2d6a85;
+            }
+
+            .blob-bubble::after {
+                bottom: -9px;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 10px solid #fff;
+            }
+
             .section-title {
                 font-size: 3.5rem;
             }
@@ -929,6 +1015,12 @@
                 width: 260px;
             }
 
+            .blob-bubble {
+                font-size: 0.7rem;
+                padding: 8px 14px;
+                border: 3px solid #2d6a85;
+            }
+
             .section-title {
                 font-size: 2.5rem;
             }
@@ -982,32 +1074,38 @@
             onclick="quickTranslateReverse('boo bllob lob bol blo blobs blot  blolb bol blobs blobl'); window.location.hash='translator';"
             style="cursor: pointer; transition: all 0.3s;"
             onmouseover="this.style.transform='scale(1.05)'; this.style.color='#ffb8d1';"
-            onmouseout="this.style.transform='scale(1)'; this.style.color='#ffd6e6';"
-            title="🔓 Click to decode this blob text!">
+            onmouseout="this.style.transform='scale(1)'; this.style.color='#ffd6e6';">
             boo bllob lob bol blo blobs blot blolb bol blobs blobl
         </p>
+        <div class="blob-bubble">
+            <i class="fas fa-comments"></i> Click to translate blob words!
+        </div>
         <p class="blob-subtitle"
             onclick="quickTranslateReverse('blooob boo lob lob bol blobs blobl ?'); window.location.hash='translator';"
             style="cursor: pointer; transition: all 0.3s;"
             onmouseover="this.style.transform='scale(1.05)'; this.style.color='#f8a5c2';"
-            onmouseout="this.style.transform='scale(1)'; this.style.color='#e6b3cc';"
-            title="🔓 Click to decode this blob text!">
+            onmouseout="this.style.transform='scale(1)'; this.style.color='#e6b3cc';">
             blooob boo lob lob bol blobs blobl ?
         </p>
+
         <div>
             <a href="#buy" class="cta-button"><i class="fas fa-fire"></i> BUY ON PUMP.FUN</a>
             <a href="#translator" class="cta-button secondary"><i class="fas fa-language"></i> TRANSLATOR</a>
+        </div>
+                <div class="blob-bubble">
+            <i class="fas fa-magic"></i> Click to translate blob words!
+
         </div>
         <p class="blob-subtitle"
             onclick="quickTranslateReverse('lob blo blot blobs  bllob oob'); window.location.hash='translator';"
             style="margin-top: 30px; cursor: pointer; transition: all 0.3s;"
             onmouseover="this.style.transform='scale(1.05)'; this.style.color='#f8a5c2';"
-            onmouseout="this.style.transform='scale(1)'; this.style.color='#e6b3cc';"
-            title="🔓 Click to decode this blob text!">
+            onmouseout="this.style.transform='scale(1)'; this.style.color='#e6b3cc';">
             lob blo blot blobs  bllob oob
         </p>
-        <p style="margin-top: 20px; font-size: 0.9rem; color: #e6b3cc; font-style: italic;">
-            💡 Tip: Click any blob text to decode it!
+
+        <p style="margin-top: 35px; font-size: 0.95rem; color: #e6b3cc; font-weight: 600;">
+            <i class="fas fa-lightbulb" style="color: #ffb8d1;"></i> Tip: Click any blob text above to reveal its meaning!
         </p>
     </section>
 
@@ -1115,22 +1213,41 @@
 
             <!-- Quick Translate Buttons -->
             <div
-                style="margin-bottom: 30px; padding: 25px; background: rgba(255, 255, 255, 0.5); border-radius: 20px; border: 3px dashed #f8a5c2;">
-                <h4
-                    style="text-align: center; font-family: 'Bangers', cursive; font-size: 1.5rem; color: #2d6a85; margin-bottom: 15px;">
-                    <i class="fas fa-bolt"></i> QUICK TRANSLATE
-                </h4>
-                <p style="text-align: center; margin-bottom: 15px; font-size: 0.9rem; color: #334155;">Click to
-                    instantly translate popular phrases:</p>
-                <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-                    <button onclick="quickTranslate('blob blob blob blob')" class="quick-btn">blob blob blob
-                        blob</button>
-                    <button onclick="quickTranslate('buy blob now')" class="quick-btn">buy blob now</button>
-                    <button onclick="quickTranslate('to the moon')" class="quick-btn">to the moon</button>
-                    <button onclick="quickTranslate('pump fun')" class="quick-btn">pump fun</button>
-                    <button onclick="quickTranslate('blobfish army')" class="quick-btn">blobfish army</button>
-                    <button onclick="quickTranslate('lets go')" class="quick-btn">lets go</button>
-                    <button onclick="quickTranslate('hodl strong')" class="quick-btn">hodl strong</button>
+                style="margin-bottom: 30px; padding: 25px; background: rgba(255, 255, 255, 0.5); border-radius: 20px; border: 3px dashed #f8a5c2; position: relative;">
+                <!-- Cloud hint text -->
+            <!-- Quick Translate Cloud Toggle -->
+            <div style="margin-bottom: 30px;">
+                <div id="quickTranslateCloud"
+                    style="padding: 20px; background: linear-gradient(135deg, #fff 0%, #fce7f3 100%); border-radius: 30px; border: 4px solid #f8a5c2; box-shadow: 0 8px 0 #c4617a; transition: all 0.3s; cursor: pointer;"
+                    onclick="toggleQuickTranslate()">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                        <i class="fas fa-cloud" style="font-size: 2rem; color: #f8a5c2;"></i>
+                        <h4 style="font-family: 'Bangers', cursive; font-size: 1.8rem; color: #2d6a85; margin: 0; letter-spacing: 1px;">
+                            QUICK TRANSLATE
+                        </h4>
+                        <i id="cloudToggleIcon" class="fas fa-chevron-down" style="font-size: 1.2rem; color: #f8a5c2; transition: transform 0.3s;"></i>
+                    </div>
+                    <p style="text-align: center; margin: 10px 0 0 0; font-size: 0.95rem; color: #c4617a; font-weight: 600;">
+                        Click to reveal instant phrase translations ☁️
+                    </p>
+                </div>
+
+                <div id="quickTranslateContent"
+                    style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, margin-top 0.4s ease-out;">
+                    <div style="padding: 25px; background: rgba(255, 255, 255, 0.5); border-radius: 20px; border: 3px dashed #f8a5c2; margin-top: 20px;">
+                        <p style="text-align: center; margin-bottom: 15px; font-size: 0.95rem; color: #334155; font-weight: 600;">
+                            <i class="fas fa-bolt" style="color: #f8a5c2;"></i> Click any phrase to instantly translate:
+                        </p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                            <button onclick="quickTranslate('blob blob blob blob'); event.stopPropagation();" class="quick-btn">blob blob blob blob</button>
+                            <button onclick="quickTranslate('buy blob now'); event.stopPropagation();" class="quick-btn">buy blob now</button>
+                            <button onclick="quickTranslate('to the moon'); event.stopPropagation();" class="quick-btn">to the moon</button>
+                            <button onclick="quickTranslate('pump fun'); event.stopPropagation();" class="quick-btn">pump fun</button>
+                            <button onclick="quickTranslate('blobfish army'); event.stopPropagation();" class="quick-btn">blobfish army</button>
+                            <button onclick="quickTranslate('lets go'); event.stopPropagation();" class="quick-btn">lets go</button>
+                            <button onclick="quickTranslate('hodl strong'); event.stopPropagation();" class="quick-btn">hodl strong</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1577,6 +1694,25 @@
                 translateToEnglish();
             }, 100);
         });
+
+        // Toggle Quick Translate Cloud
+        function toggleQuickTranslate() {
+            const content = document.getElementById('quickTranslateContent');
+            const icon = document.getElementById('cloudToggleIcon');
+            const cloud = document.getElementById('quickTranslateCloud');
+            
+            if (content.style.maxHeight === '0px' || content.style.maxHeight === '') {
+                // Open
+                content.style.maxHeight = '500px';
+                icon.style.transform = 'rotate(180deg)';
+                cloud.style.boxShadow = '0 8px 0 #c4617a, 0 0 30px rgba(248, 165, 194, 0.5)';
+            } else {
+                // Close
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+                cloud.style.boxShadow = '0 8px 0 #c4617a';
+            }
+        }
     </script>
 </body>
 
